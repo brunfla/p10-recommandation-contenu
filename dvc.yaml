@@ -1,0 +1,10 @@
+stages:
+  train_model:
+    cmd: >
+      papermill notebooks/training.ipynb _
+    deps:
+      - notebooks/train_model.py
+      - data/deps/clicks_sample.csv
+      - data/deps/articles_metadata.csv
+    outs:
+      - data/outs/model/model_svd.pkl

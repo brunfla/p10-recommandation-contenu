@@ -1,0 +1,4 @@
+[core]
+    remote = azure-p10
+['remote "azure-p10"']
+    url = azure://p10
