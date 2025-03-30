@@ -61,12 +61,14 @@ jobs:
       - name: ✅ Upload trained model to Azure Blob
         run: |
           azcopy copy data/outs/model/model_svd.pkl "$MODEL_SAS_URL" --overwrite=true
+        env:
+          MODEL_SAS_URL: ${{ secrets.MODEL_SAS_URL }}
 
       - name: 🔐 Inject MODEL_SAS_URL in Azure Function config
         run: |
           az functionapp config appsettings set \
             --name $AZURE_FUNCTION_NAME \
-            --settings MODEL_SAS_URL=$MODEL_SAS_URL
+            --settings MODEL_SAS_URL="$MODEL_SAS_URL"
         env:
           MODEL_SAS_URL: ${{ secrets.MODEL_SAS_URL }}
           AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
