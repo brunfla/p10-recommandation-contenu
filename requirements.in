@@ -1,4 +1,6 @@
 dvc[azure]
+ipykernel
+jupyter
 papermill
 pandas
 numpy<2

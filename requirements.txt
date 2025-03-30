@@ -31,10 +31,24 @@ antlr4-python3-runtime==4.9.3
     # via
     #   hydra-core
     #   omegaconf
+anyio==4.9.0
+    # via
+    #   httpx
+    #   jupyter-server
 appdirs==1.4.4
     # via iterative-telemetry
 argcomplete==3.6.1
     # via knack
+argon2-cffi==23.1.0
+    # via jupyter-server
+argon2-cffi-bindings==21.2.0
+    # via argon2-cffi
+arrow==1.3.0
+    # via isoduration
+asttokens==3.0.0
+    # via stack-data
+async-lru==2.0.5
+    # via jupyterlab
 async-timeout==5.0.1
     # via aiohttp
 asyncssh==2.20.0
@@ -64,8 +78,14 @@ azure-identity==1.21.0
     #   dvc-azure
 azure-storage-blob==12.25.1
     # via adlfs
+babel==2.17.0
+    # via jupyterlab-server
+beautifulsoup4==4.13.3
+    # via nbconvert
 billiard==4.2.1
     # via celery
+bleach[css]==6.2.0
+    # via nbconvert
 blinker==1.9.0
     # via streamlit
 cachetools==5.5.2
@@ -75,9 +95,13 @@ celery==5.4.0
     #   dvc
     #   dvc-task
 certifi==2025.1.31
-    # via requests
+    # via
+    #   httpcore
+    #   httpx
+    #   requests
 cffi==1.17.1
     # via
+    #   argon2-cffi-bindings
     #   azure-datalake-store
     #   cryptography
     #   pygit2
@@ -100,6 +124,10 @@ click-repl==0.3.0
     # via celery
 colorama==0.4.6
     # via dvc
+comm==0.2.2
+    # via
+    #   ipykernel
+    #   ipywidgets
 configobj==5.0.9
     # via dvc
 cryptography==44.0.2
@@ -109,6 +137,12 @@ cryptography==44.0.2
     #   azure-storage-blob
     #   msal
     #   pyjwt
+debugpy==1.8.13
+    # via ipykernel
+decorator==5.2.1
+    # via ipython
+defusedxml==0.7.1
+    # via nbconvert
 dictdiffer==0.9.0
     # via dvc-data
 diskcache==5.6.3
@@ -148,6 +182,12 @@ entrypoints==0.4
     # via
     #   gto
     #   papermill
+exceptiongroup==1.2.2
+    # via
+    #   anyio
+    #   ipython
+executing==2.2.0
+    # via stack-data
 fastjsonschema==2.21.1
     # via nbformat
 filelock==3.18.0
@@ -156,6 +196,8 @@ flatten-dict==0.4.2
     # via dvc
 flufl-lock==8.1.0
     # via dvc
+fqdn==1.5.1
+    # via jsonschema
 frozenlist==1.5.0
     # via
     #   aiohttp
@@ -186,39 +228,118 @@ grandalf==0.8
     # via dvc
 gto==1.7.2
     # via dvc
+h11==0.14.0
+    # via httpcore
+httpcore==1.0.7
+    # via httpx
+httpx==0.28.1
+    # via jupyterlab
 hydra-core==1.3.2
     # via dvc
 idna==3.10
     # via
+    #   anyio
+    #   httpx
+    #   jsonschema
     #   requests
     #   yarl
 importlib-metadata==8.6.1
-    # via jupyter-client
+    # via
+    #   jupyter-client
+    #   jupyter-lsp
+    #   jupyterlab
+    #   jupyterlab-server
+    #   nbconvert
+ipykernel==6.29.5
+    # via
+    #   -r requirements.in
+    #   jupyter
+    #   jupyter-console
+    #   jupyterlab
+ipython==8.18.1
+    # via
+    #   ipykernel
+    #   ipywidgets
+    #   jupyter-console
+ipywidgets==8.1.5
+    # via jupyter
 isodate==0.7.2
     # via azure-storage-blob
+isoduration==20.11.0
+    # via jsonschema
 iterative-telemetry==0.0.10
     # via dvc
+jedi==0.19.2
+    # via ipython
 jinja2==3.1.6
     # via
     #   altair
+    #   jupyter-server
+    #   jupyterlab
+    #   jupyterlab-server
+    #   nbconvert
     #   pydeck
 jmespath==1.0.1
     # via knack
 joblib==1.4.2
     # via scikit-surprise
-jsonschema==4.23.0
+json5==0.10.0
+    # via jupyterlab-server
+jsonpointer==3.0.0
+    # via jsonschema
+jsonschema[format-nongpl]==4.23.0
     # via
     #   altair
+    #   jupyter-events
+    #   jupyterlab-server
     #   nbformat
 jsonschema-specifications==2024.10.1
     # via jsonschema
+jupyter==1.1.1
+    # via -r requirements.in
 jupyter-client==8.6.3
-    # via nbclient
+    # via
+    #   ipykernel
+    #   jupyter-console
+    #   jupyter-server
+    #   nbclient
+jupyter-console==6.6.3
+    # via jupyter
 jupyter-core==5.7.2
     # via
+    #   ipykernel
     #   jupyter-client
+    #   jupyter-console
+    #   jupyter-server
+    #   jupyterlab
     #   nbclient
+    #   nbconvert
     #   nbformat
+jupyter-events==0.12.0
+    # via jupyter-server
+jupyter-lsp==2.2.5
+    # via jupyterlab
+jupyter-server==2.15.0
+    # via
+    #   jupyter-lsp
+    #   jupyterlab
+    #   jupyterlab-server
+    #   notebook
+    #   notebook-shim
+jupyter-server-terminals==0.5.3
+    # via jupyter-server
+jupyterlab==4.3.6
+    # via
+    #   jupyter
+    #   notebook
+jupyterlab-pygments==0.3.0
+    # via nbconvert
+jupyterlab-server==2.27.3
+    # via
+    #   jupyterlab
+    #   notebook
+jupyterlab-widgets==3.0.13
+    # via ipywidgets
 knack==0.12.0
     # via dvc-azure
 kombu==5.5.1
@@ -229,9 +350,17 @@ kombu==5.5.1
 markdown-it-py==3.0.0
     # via rich
 markupsafe==3.0.2
-    # via jinja2
+    # via
+    #   jinja2
+    #   nbconvert
+matplotlib-inline==0.1.7
+    # via
+    #   ipykernel
+    #   ipython
 mdurl==0.1.2
     # via markdown-it-py
+mistune==3.1.3
+    # via nbconvert
 msal==1.32.0
     # via
     #   azure-datalake-store
@@ -246,13 +375,29 @@ multidict==6.2.0
 narwhals==1.32.0
     # via altair
 nbclient==0.10.2
-    # via papermill
+    # via
+    #   nbconvert
+    #   papermill
+nbconvert==7.16.6
+    # via
+    #   jupyter
+    #   jupyter-server
 nbformat==5.10.4
     # via
+    #   jupyter-server
     #   nbclient
+    #   nbconvert
     #   papermill
+nest-asyncio==1.6.0
+    # via ipykernel
 networkx==3.2.1
     # via dvc
+notebook==7.3.3
+    # via jupyter
+notebook-shim==0.2.4
+    # via
+    #   jupyterlab
+    #   notebook
 numpy==1.26.4
     # via
     #   -r requirements.in
@@ -269,31 +414,50 @@ orjson==3.10.16
     # via
     #   dvc-data
     #   sqltrie
+overrides==7.7.0
+    # via jupyter-server
 packaging==24.2
     # via
     #   altair
     #   dvc
     #   hydra-core
+    #   ipykernel
+    #   jupyter-events
+    #   jupyter-server
+    #   jupyterlab
+    #   jupyterlab-server
     #   knack
+    #   nbconvert
     #   streamlit
 pandas==2.2.3
     # via
     #   -r requirements.in
     #   streamlit
+pandocfilters==1.5.1
+    # via nbconvert
 papermill==2.6.0
     # via -r requirements.in
+parso==0.8.4
+    # via jedi
 pathspec==0.12.1
     # via
     #   dvc
     #   scmrepo
+pexpect==4.9.0
+    # via ipython
 pillow==11.1.0
     # via streamlit
 platformdirs==4.3.7
     # via
     #   dvc
     #   jupyter-core
+prometheus-client==0.21.1
+    # via jupyter-server
 prompt-toolkit==3.0.50
-    # via click-repl
+    # via
+    #   click-repl
+    #   ipython
+    #   jupyter-console
 propcache==0.3.1
     # via
     #   aiohttp
@@ -304,6 +468,13 @@ psutil==7.0.0
     # via
     #   dvc
     #   flufl-lock
+    #   ipykernel
+ptyprocess==0.7.0
+    # via
+    #   pexpect
+    #   terminado
+pure-eval==0.2.3
+    # via stack-data
 pyarrow==19.0.1
     # via streamlit
 pycparser==2.22
@@ -320,7 +491,10 @@ pygit2==1.15.1
     # via scmrepo
 pygments==2.19.1
     # via
+    #   ipython
+    #   jupyter-console
     #   knack
+    #   nbconvert
     #   rich
 pygtrie==2.5.0
     # via
@@ -339,23 +513,32 @@ pyparsing==3.2.3
     #   pydot
 python-dateutil==2.9.0.post0
     # via
+    #   arrow
     #   celery
     #   jupyter-client
     #   pandas
+python-json-logger==3.3.0
+    # via jupyter-events
 pytz==2025.2
     # via pandas
 pyyaml==6.0.2
     # via
     #   -r requirements.in
+    #   jupyter-events
     #   knack
     #   omegaconf
     #   papermill
 pyzmq==26.3.0
-    # via jupyter-client
+    # via
+    #   ipykernel
+    #   jupyter-client
+    #   jupyter-console
+    #   jupyter-server
 referencing==0.36.2
     # via
     #   jsonschema
     #   jsonschema-specifications
+    #   jupyter-events
 requests==2.32.3
     # via
     #   -r requirements.in
@@ -364,9 +547,18 @@ requests==2.32.3
     #   dvc
     #   dvc-studio-client
     #   iterative-telemetry
+    #   jupyterlab-server
     #   msal
     #   papermill
     #   streamlit
+rfc3339-validator==0.1.4
+    # via
+    #   jsonschema
+    #   jupyter-events
+rfc3986-validator==0.1.1
+    # via
+    #   jsonschema
+    #   jupyter-events
 rich==13.9.4
     # via
     #   dvc
@@ -392,6 +584,8 @@ scmrepo==3.3.10
     #   gto
 semver==3.0.4
     # via gto
+send2trash==1.8.3
+    # via jupyter-server
 shellingham==1.5.4
     # via typer
 shortuuid==1.0.13
@@ -405,10 +599,17 @@ six==1.17.0
     #   azure-core
     #   flatten-dict
     #   python-dateutil
+    #   rfc3339-validator
 smmap==5.0.2
     # via gitdb
+sniffio==1.3.1
+    # via anyio
+soupsieve==2.6
+    # via beautifulsoup4
 sqltrie==0.11.2
     # via dvc-data
+stack-data==0.6.3
+    # via ipython
 streamlit==1.44.0
     # via -r requirements.in
 tabulate==0.9.0
@@ -420,14 +621,27 @@ tenacity==9.0.0
     # via
     #   papermill
     #   streamlit
+terminado==0.18.1
+    # via
+    #   jupyter-server
+    #   jupyter-server-terminals
+tinycss2==1.4.0
+    # via bleach
 toml==0.10.2
     # via streamlit
+tomli==2.2.1
+    # via jupyterlab
 tomlkit==0.13.2
     # via dvc
 tornado==6.4.2
     # via
+    #   ipykernel
     #   jupyter-client
+    #   jupyter-server
+    #   jupyterlab
+    #   notebook
     #   streamlit
+    #   terminado
 tqdm==4.67.1
     # via
     #   dvc
@@ -437,23 +651,41 @@ tqdm==4.67.1
     #   scmrepo
 traitlets==5.14.3
     # via
+    #   comm
+    #   ipykernel
+    #   ipython
+    #   ipywidgets
     #   jupyter-client
+    #   jupyter-console
     #   jupyter-core
+    #   jupyter-events
+    #   jupyter-server
+    #   jupyterlab
+    #   matplotlib-inline
     #   nbclient
+    #   nbconvert
     #   nbformat
 typer==0.15.2
     # via gto
+types-python-dateutil==2.9.0.20241206
+    # via arrow
 typing-extensions==4.12.2
     # via
     #   altair
+    #   anyio
+    #   async-lru
     #   asyncssh
     #   azure-core
     #   azure-identity
     #   azure-storage-blob
+    #   beautifulsoup4
+    #   ipython
     #   kombu
+    #   mistune
     #   multidict
     #   pydantic
     #   pydantic-core
+    #   python-json-logger
     #   referencing
     #   rich
     #   streamlit
@@ -466,6 +698,8 @@ tzdata==2025.1
     #   celery
     #   kombu
     #   pandas
+uri-template==1.3.0
+    # via jsonschema
 urllib3==2.3.0
     # via
     #   dulwich
@@ -483,6 +717,16 @@ watchdog==6.0.0
     # via streamlit
 wcwidth==0.2.13
     # via prompt-toolkit
+webcolors==24.11.1
+    # via jsonschema
+webencodings==0.5.1
+    # via
+    #   bleach
+    #   tinycss2
+websocket-client==1.8.0
+    # via jupyter-server
+widgetsnbextension==4.0.13
+    # via ipywidgets
 yarl==1.18.3
     # via aiohttp
 zc-lockfile==3.0.post1

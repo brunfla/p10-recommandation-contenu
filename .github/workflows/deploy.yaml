@@ -30,6 +30,12 @@ jobs:
         run: |
           pip install -r requirements.txt
 
+      - name: 🛠 Install AzCopy
+        run: |
+          wget https://aka.ms/downloadazcopy-v10-linux -O azcopy.tar.gz
+          tar -xf azcopy.tar.gz
+          sudo cp ./azcopy_linux_amd64_*/azcopy /usr/bin/
+
       - name: ⚙️ Configure DVC remote credentials
         run: |
           dvc remote modify azure-p10 account_name $DVC_ACCOUNT_NAME --local
