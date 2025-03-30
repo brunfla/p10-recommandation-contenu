@@ -1,5 +1,7 @@
-# S3
+# DVC local config (jamais versionné)
 .dvc/config.local
 
-# dvc
-data
+# Données téléchargées depuis DVC (ne pas versionner)
+data/**/*
+!data/**/*.dvc      # Garde les pointeurs .dvc
+!data/.gitignore    # Garde les placeholders si besoin
