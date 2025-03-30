@@ -1,0 +1,5 @@
+outs:
+- md5: 0a0fba504a6133ee5e9c391dff7e5217
+  size: 11093922
+  hash: md5
+  path: articles_metadata.csv

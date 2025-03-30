@@ -1,0 +1,5 @@
+outs:
+- md5: b67fcaa316566ccee1d24570f6e9d11d
+  size: 134214
+  hash: md5
+  path: clicks_sample.csv

@@ -1,7 +1,16 @@
 # DVC local config (jamais versionné)
 .dvc/config.local
 
-# Données téléchargées depuis DVC (ne pas versionner)
-data/**/*
-!data/**/*.dvc      # Garde les pointeurs .dvc
-!data/.gitignore    # Garde les placeholders si besoin
+# Ignore tout dans data/
+data/*
+# Mais pas les sous-dossiers
+!data/.gitignore
+!data/deps/
+!data/outs/
+
+# Ignore tout dans deps et outs
+data/deps/*
+data/outs/*
+# Mais pas les .dvc
+!data/deps/*.dvc
+!data/outs/*.dvc
