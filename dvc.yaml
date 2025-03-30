@@ -2,8 +2,11 @@ stages:
   train_model:
     cmd: >
       papermill notebooks/training.ipynb _
+      -p metadata_path ${model.metadata_path} 
+      -p clicks_path ${model.clicks_path}
+      -p output_path ${model.output_path}
     deps:
-      - notebooks/train_model.py
+      - notebooks/training.ipynb
       - data/deps/clicks_sample.csv
       - data/deps/articles_metadata.csv
     outs:

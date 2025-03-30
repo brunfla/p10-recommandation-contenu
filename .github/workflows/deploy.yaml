@@ -1,0 +1,76 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: 📦 Cache pip dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+
+      - name: 📦 Install Python dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: ⚙️ Configure DVC remote credentials
+        run: |
+          dvc remote modify azure-p10 account_name $DVC_ACCOUNT_NAME --local
+          dvc remote modify azure-p10 account_key $DVC_ACCOUNT_KEY --local
+        env:
+          DVC_ACCOUNT_NAME: ${{ secrets.DVC_ACCOUNT_NAME }}
+          DVC_ACCOUNT_KEY: ${{ secrets.DVC_ACCOUNT_KEY }}
+
+      - name: ⬇️ Pull data and model from DVC remote
+        run: dvc pull
+
+      - name: 🔁 DVC repro with GitHub params
+        run: dvc repro
+
+      - name: ☁️ Push model & data to DVC remote
+        run: dvc push
+
+      - name: 🔐 Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: ✅ Upload trained model to Azure Blob
+        run: |
+          azcopy copy data/outs/model/model_svd.pkl "$MODEL_SAS_URL" --overwrite=true
+
+      - name: 🔐 Inject MODEL_SAS_URL in Azure Function config
+        run: |
+          az functionapp config appsettings set \
+            --name $AZURE_FUNCTION_NAME \
+            --settings MODEL_SAS_URL=$MODEL_SAS_URL
+        env:
+          MODEL_SAS_URL: ${{ secrets.MODEL_SAS_URL }}
+          AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
+
+      - name: 🚀 Deploy Azure Function
+        run: |
+          func azure functionapp publish $AZURE_FUNCTION_NAME --python
+
+      - name: 🎨 (Optionnel) Deploy Streamlit App
+        if: false  # change to true or remove this line to enable
+        run: |
+          echo "Streamlit deployment logic goes here"
+

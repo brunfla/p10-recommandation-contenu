@@ -1,0 +1,6 @@
+model:
+  metadata_path: "data/deps/articles_metadata.csv"
+  output_path: "data/outs/model/model_svd.pkl"
+  clicks_path: "data/deps/clicks_sample.csv"
+
+

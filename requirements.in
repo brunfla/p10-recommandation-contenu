@@ -1,0 +1,9 @@
+dvc[azure]
+papermill
+pandas
+numpy<2
+scikit-surprise
+pyyaml
+streamlit
+azure-functions
+requests

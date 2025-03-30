@@ -3,13 +3,14 @@ import logging
 import json
 import pickle
 import requests
+import os
 
 from surprise import SVD  # pour que pickle fonctionne
 from surprise.trainset import Trainset
 
 app = func.FunctionApp()
 
-MODEL_URL = "https://p10recommandationcontenu.blob.core.windows.net/p10/model_svd.pkl?sp=r&st=2025-03-27T14:02:36Z&se=2025-04-27T21:02:36Z&sv=2024-11-04&sr=b&sig=deYJZUjVu8eCm4W8L2l9V%2B0fEvdZQpVx0bQJlcsbGDk%3D"
+MODEL_URL = os.environ.get("MODEL_SAS_URL")
 
 # 📥 Charger modèle depuis Azure Blob Storage
 def load_model_from_blob(url):
