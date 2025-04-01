@@ -29,10 +29,10 @@ stages:
       echo "Streamlit deployment logic goes here"
     deps:
       - streamlit_app/
-      
-#    🔐_Inject MODEL_SAS_URL in Azure Function config
-#      cmd: >
-#        az functionapp config appsettings set \
-#          --name "$AZURE_FUNCTION_NAME" \
-#          --resource-group "$AZURE_RESOURCE_GROUP" \
-#          --settings 'MODEL_SAS_URL='"$MODEL_SAS_URL"
+
+#  🔐_Inject MODEL_SAS_URL in Azure Function config
+#     cmd: >
+#       az functionapp config appsettings set \
+#         --name "$AZURE_FUNCTION_NAME" \
+#         --resource-group "$AZURE_RESOURCE_GROUP" \
+#         --settings 'MODEL_SAS_URL='"$MODEL_SAS_URL"

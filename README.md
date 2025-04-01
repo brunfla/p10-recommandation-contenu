@@ -20,6 +20,7 @@ pip-compile requirements.in
 ```bash
 dvc add data/deps/articles_metadata.csv
 dvc add data/deps/clicks_sample.csv
+# dvc add data/outs/model/model_svd.pkl
 ```
 
 ### Génère le hash des secrets

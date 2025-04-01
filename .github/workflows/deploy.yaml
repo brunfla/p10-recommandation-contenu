@@ -66,7 +66,7 @@ jobs:
 #          AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
 #          AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
 
-      - name: 🔁 DVC repro with GitHub params
+      - name: 🔁 DVC repro
         run: dvc repro
         env:
           MODEL_SAS_URL: ${{ secrets.MODEL_SAS_URL }}
