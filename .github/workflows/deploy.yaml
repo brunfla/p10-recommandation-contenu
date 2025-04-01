@@ -75,6 +75,10 @@ jobs:
           AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
           AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
 
+      - name: 📦 Install Azure Functions Core Tools
+        run: |
+          npm install -g azure-functions-core-tools@4 --unsafe-perm true
+
       - name: 🚀 Deploy Azure Function
         run: |
           cd azure_function
