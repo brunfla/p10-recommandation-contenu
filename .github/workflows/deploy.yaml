@@ -53,16 +53,16 @@ jobs:
       - name: ☁️ Push model & data to DVC remote
         run: dvc push
 
-      - name: 🔐 Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
       - name: ✅ Upload trained model to Azure Blob
         run: |
           azcopy copy data/outs/model/model_svd.pkl "$MODEL_SAS_URL" --overwrite=true
         env:
           MODEL_SAS_URL: ${{ secrets.MODEL_SAS_URL }}
+
+      - name: 🔐 Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: 🔐 Inject MODEL_SAS_URL in Azure Function config
         run: |
@@ -77,7 +77,10 @@ jobs:
 
       - name: 🚀 Deploy Azure Function
         run: |
-          func azure functionapp publish $AZURE_FUNCTION_NAME --python
+          cd azure_fonction
+          func azure functionapp publish "$AZURE_FUNCTION_NAME" --python
+        env:
+          AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
 
       - name: 🎨 (Optionnel) Deploy Streamlit App
         if: false  # change to true or remove this line to enable
