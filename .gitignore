@@ -13,4 +13,5 @@ data/deps/*
 data/outs/*
 # Mais pas les .dvc
 !data/deps/*.dvc
+!data/deps/.github/*.dvc
 !data/outs/*.dvc

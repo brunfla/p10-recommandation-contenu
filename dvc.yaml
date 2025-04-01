@@ -1,5 +1,5 @@
 stages:
-  train_model:
+  🧠_train_model:
     cmd: >
       papermill notebooks/training.ipynb _
       -p metadata_path ${model.metadata_path} 
@@ -10,3 +10,29 @@ stages:
       - data/deps/articles_metadata.csv
     outs:
       - data/outs/model/model_svd.pkl
+
+  ☁️_upload_model:
+    cmd: >
+      azcopy copy data/outs/model/model_svd.pkl "$MODEL_SAS_URL" --overwrite=true
+    deps:
+      - data/outs/model/model_svd.pkl
+
+  🚀_deploy_function:
+    cmd: >
+      cd azure_function &&
+      func azure functionapp publish "$AZURE_FUNCTION_NAME" --python
+    deps:
+      - azure_function/
+
+  🎨_Deploy_Streamlit_App:
+    cmd: >
+      echo "Streamlit deployment logic goes here"
+    deps:
+      - streamlit_app/
+      
+#    🔐_Inject MODEL_SAS_URL in Azure Function config
+#      cmd: >
+#        az functionapp config appsettings set \
+#          --name "$AZURE_FUNCTION_NAME" \
+#          --resource-group "$AZURE_RESOURCE_GROUP" \
+#          --settings 'MODEL_SAS_URL='"$MODEL_SAS_URL"

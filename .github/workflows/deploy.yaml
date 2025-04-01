@@ -36,6 +36,15 @@ jobs:
           tar -xf azcopy.tar.gz
           sudo cp ./azcopy_linux_amd64_*/azcopy /usr/bin/
 
+      - name: 📦 Install Azure Functions Core Tools
+        run: |
+          npm install -g azure-functions-core-tools@4 --unsafe-perm true
+
+      - name: 🔐 Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: ⚙️ Configure DVC remote credentials
         run: |
           dvc remote modify azure-p10 account_name $DVC_ACCOUNT_NAME --local
@@ -47,47 +56,23 @@ jobs:
       - name: ⬇️ Pull data and model from DVC remote
         run: dvc pull
 
+#      - name: 🔐 Hash secrets
+#        run: |
+#          echo -n "$MODEL_SAS_URL" | sha256sum | cut -d ' ' -f1 > data/deps/github/MODEL_SAS_URL.hash
+#          echo -n "$AZURE_RESOURCE_GROUP" | sha256sum | cut -d ' ' -f1 > data/deps/github/AZURE_RESOURCE_GROUP.hash
+#          echo -n "$AZURE_FUNCTION_NAME" | sha256sum | cut -d ' ' -f1 > data/deps/github/AZURE_FUNCTION_NAME.hash
+#        env:
+#          MODEL_SAS_URL: ${{ secrets.MODEL_SAS_URL }}
+#          AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+#          AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
+
       - name: 🔁 DVC repro with GitHub params
         run: dvc repro
-
-      - name: ☁️ Push model & data to DVC remote
-        run: dvc push
-
-      - name: ✅ Upload trained model to Azure Blob
-        run: |
-          azcopy copy data/outs/model/model_svd.pkl "$MODEL_SAS_URL" --overwrite=true
-        env:
-          MODEL_SAS_URL: ${{ secrets.MODEL_SAS_URL }}
-
-      - name: 🔐 Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-      - name: 📦 Install Azure Functions Core Tools
-        run: |
-          npm install -g azure-functions-core-tools@4 --unsafe-perm true
-
-      - name: 🚀 Deploy Azure Function
-        run: |
-          cd azure_function
-          func azure functionapp publish "$AZURE_FUNCTION_NAME" --python
-        env:
-          AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
-
-      - name: 🔐 Inject MODEL_SAS_URL in Azure Function config
-        run: |
-          az functionapp config appsettings set \
-            --name "$AZURE_FUNCTION_NAME" \
-            --resource-group "$AZURE_RESOURCE_GROUP" \
-            --settings 'MODEL_SAS_URL='"$MODEL_SAS_URL"
         env:
           MODEL_SAS_URL: ${{ secrets.MODEL_SAS_URL }}
           AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
           AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
 
-      - name: 🎨 (Optionnel) Deploy Streamlit App
-        if: false  # change to true or remove this line to enable
-        run: |
-          echo "Streamlit deployment logic goes here"
+      - name: ☁️ Push model & data to DVC remote
+        run: dvc push
 
