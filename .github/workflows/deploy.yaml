@@ -68,9 +68,11 @@ jobs:
         run: |
           az functionapp config appsettings set \
             --name $AZURE_FUNCTION_NAME \
+            --resource-group $AZURE_RESOURCE_GROUP \ 
             --settings MODEL_SAS_URL="$MODEL_SAS_URL"
         env:
           MODEL_SAS_URL: ${{ secrets.MODEL_SAS_URL }}
+          AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
           AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
 
       - name: 🚀 Deploy Azure Function
