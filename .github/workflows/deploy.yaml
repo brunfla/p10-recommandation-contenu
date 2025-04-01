@@ -77,7 +77,7 @@ jobs:
 
       - name: 🚀 Deploy Azure Function
         run: |
-          cd azure_fonction
+          cd azure_function
           func azure functionapp publish "$AZURE_FUNCTION_NAME" --python
         env:
           AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
