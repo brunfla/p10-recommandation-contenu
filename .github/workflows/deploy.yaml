@@ -64,17 +64,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: 🔐 Inject MODEL_SAS_URL in Azure Function config
-        run: |
-          az functionapp config appsettings set \
-            --name "$AZURE_FUNCTION_NAME" \
-            --resource-group "$AZURE_RESOURCE_GROUP" \
-            --settings 'MODEL_SAS_URL='"$MODEL_SAS_URL"
-        env:
-          MODEL_SAS_URL: ${{ secrets.MODEL_SAS_URL }}
-          AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
-
       - name: 📦 Install Azure Functions Core Tools
         run: |
           npm install -g azure-functions-core-tools@4 --unsafe-perm true
@@ -84,6 +73,17 @@ jobs:
           cd azure_function
           func azure functionapp publish "$AZURE_FUNCTION_NAME" --python
         env:
+          AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
+
+      - name: 🔐 Inject MODEL_SAS_URL in Azure Function config
+        run: |
+          az functionapp config appsettings set \
+            --name "$AZURE_FUNCTION_NAME" \
+            --resource-group "$AZURE_RESOURCE_GROUP" \
+            --settings 'MODEL_SAS_URL='"$MODEL_SAS_URL"
+        env:
+          MODEL_SAS_URL: ${{ secrets.MODEL_SAS_URL }}
+          AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
           AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
 
       - name: 🎨 (Optionnel) Deploy Streamlit App
