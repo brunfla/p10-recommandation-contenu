@@ -15,3 +15,8 @@ az ad sp create-for-rbac \
 ```bash
 pip-compile requirements.in
 ```
+
+### Ajouter une dépendance DVC
+```bash
+dvc add notebooks/training.ipynb
+```

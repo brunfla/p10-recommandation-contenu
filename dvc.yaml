@@ -6,7 +6,6 @@ stages:
       -p clicks_path ${model.clicks_path}
       -p output_path ${model.output_path}
     deps:
-      - notebooks/training.ipynb
       - data/deps/clicks_sample.csv
       - data/deps/articles_metadata.csv
     outs:
