@@ -1,4 +1,5 @@
 [core]
     remote = azure-p10
+    autostage = true
 ['remote "azure-p10"']
     url = azure://p10
