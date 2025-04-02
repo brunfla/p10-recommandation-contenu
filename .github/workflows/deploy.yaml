@@ -55,7 +55,7 @@ jobs:
 
       - name: ⬇️ Pull data and model from DVC remote (if applicable)
         run: |
-          if [ -f dvc.lock ] || [ -f dvc.yaml ]; then
+          if [ -f dvc.lock ]; then
             dvc pull
           else
             echo "⚠️ No DVC metadata found to pull from remote."
