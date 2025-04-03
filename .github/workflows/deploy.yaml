@@ -82,16 +82,28 @@ jobs:
           AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
           AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
 
-      - name: ☁️ Push model & data to DVC remote
-        run: dvc push
-
-      - name: 📝 Commit updated DVC metadata (if changed)
+      - name: ☁️ DVC push + commit metadata if files were uploaded
+        shell: bash
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add dvc.lock dvc.yaml
-          git diff --cached --quiet || git commit -m "🔄 Update DVC metadata [CI]"
-          git push
+          git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/${{ github.repository }}
+
+          echo "☁️ Running dvc push..."
+          output=$(dvc push)
+
+          echo "$output"
+
+          if echo "$output" | grep -q -e "Uploading" -e "Pushing" -e "Exporting"; then
+            echo "📦 DVC uploaded files. Committing updated metadata..."
+            git add dvc.lock dvc.yaml .dvc
+            git commit -m "🔄 Update DVC metadata [CI]"
+            git push origin HEAD:${{ github.ref_name }}
+          else
+            echo "✅ No data was pushed. Skipping Git commit."
+          fi
+
+
 
 #      - name: 🔐 Hash secrets
 #        run: |
