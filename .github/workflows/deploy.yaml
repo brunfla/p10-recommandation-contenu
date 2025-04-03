@@ -94,7 +94,7 @@ jobs:
 
           echo "$output"
 
-          if echo "$output" | grep -q -e "Uploading" -e "Pushing" -e "Exporting"; then
+          if echo "$output" | grep -q -e "file pushed"; then
             echo "📦 DVC uploaded files. Committing updated metadata..."
             git add dvc.lock dvc.yaml .dvc
             git commit -m "🔄 Update DVC metadata [CI]"
