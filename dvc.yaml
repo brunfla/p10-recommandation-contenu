@@ -14,9 +14,9 @@ stages:
   ☁️_upload_model:
     cmd: >
       if [ "$GH_CI" = "true" ]; then \
-        azcopy copy data/outs/model/model_svd.pkl "$MODEL_SAS_URL" --overwrite=true; \
+      azcopy copy data/outs/model/model_svd.pkl "$MODEL_SAS_URL" --overwrite=true; \
       else \
-        echo "Skipping upload"; \
+      echo "Skipping upload"; \
       fi
     deps:
       - data/outs/model/model_svd.pkl
@@ -24,19 +24,19 @@ stages:
   🚀_deploy_function:
     cmd: >
       if [ "$GH_CI" = "true" ]; then \
-        cd azure_function && func azure functionapp publish "$AZURE_FUNCTION_NAME" --python; \
+      cd azure_function && func azure functionapp publish "$AZURE_FUNCTION_NAME" --python; \
       else \
-        echo "Skipping Azure Function deployment (GH_CI != true)"; \
+      echo "Skipping Azure Function deployment (GH_CI != true)"; \
       fi
     deps:
       - azure_function/
 
   🎨_Deploy_Streamlit_App:
     cmd: >
-      if [ "$GH_CI" = "true" ]; then
-        echo "Streamlit deployment logic goes here";
-      else
-        echo "Skipping Streamlit deployment (GH_CI != true)";
+      if [ "$GH_CI" = "true" ]; then \
+      echo "Streamlit deployment logic goes here"; \
+      else \
+      echo "Skipping Streamlit deployment (GH_CI != true)"; \
       fi
 
 #  🔐_Inject MODEL_SAS_URL in Azure Function config
