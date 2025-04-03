@@ -49,16 +49,30 @@ jobs:
         run: |
           dvc remote modify azure-p10 account_name $DVC_ACCOUNT_NAME --local
           dvc remote modify azure-p10 account_key $DVC_ACCOUNT_KEY --local
+          dvc remote list
         env:
           DVC_ACCOUNT_NAME: ${{ secrets.DVC_ACCOUNT_NAME }}
           DVC_ACCOUNT_KEY: ${{ secrets.DVC_ACCOUNT_KEY }}
 
-      - name: ⬇️ Pull data and model from DVC remote (if applicable)
+      - name: 🔄 Smart DVC Pull with simple check
+        shell: bash
         run: |
-          if [ -f dvc.lock ]; then
-            dvc pull
+          file_not_cache=0
+
+          for o in $(yq '.stages.*.outs[]' dvc.yaml | tr -d '"'); do
+            echo "🔎 Checking: $o"
+            if [ ! -f "$o" ]; then
+              echo "⚠️ Missing: $o"
+              file_not_cache=1
+            fi
+          done
+
+          if [ "$file_not_cache" -eq 1 ]; then
+            echo "➡️ Some outs missing, pulling only data/deps/"
+            dvc pull -R data/deps
           else
-            echo "⚠️ No DVC metadata found to pull from remote."
+            echo "✅ All outs present, doing full pull"
+            dvc pull
           fi
 
       - name: 🔁 DVC repro
