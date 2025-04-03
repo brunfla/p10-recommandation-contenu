@@ -27,8 +27,8 @@ stages:
   🎨_Deploy_Streamlit_App:
     cmd: >
       echo "Streamlit deployment logic goes here"
-    deps:
-      - streamlit_app/
+#    deps:
+#      - streamlit_app/
 
 #  🔐_Inject MODEL_SAS_URL in Azure Function config
 #     cmd: >
