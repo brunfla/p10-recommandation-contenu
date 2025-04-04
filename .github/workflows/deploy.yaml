@@ -95,6 +95,8 @@ jobs:
 
           if echo "$output" | grep -q -e "file pushed"; then
             echo "📦 DVC uploaded files. Committing updated metadata..."
+            git config --global user.email "bruno.flament.bf@gmail.com"
+            git config --global user.name "Bruno Flament"
             git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/brunfla/p10-recommandation-contenu.git
             git add dvc.lock dvc.yaml .dvc
             git commit -m "🔄 Update DVC metadata [CI]"
