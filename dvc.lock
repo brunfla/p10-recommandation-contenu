@@ -15,14 +15,14 @@ stages:
     outs:
     - path: data/outs/model/model_svd.pkl
       hash: md5
-      md5: a612810008e4cf0d1b0e89cb47e71f52
+      md5: 02fd6321992447801deae7dad89ac311
       size: 895982
   ☁️_upload_model:
     cmd: ./scripts/upload_model.sh
     deps:
     - path: data/outs/model/model_svd.pkl
       hash: md5
-      md5: a612810008e4cf0d1b0e89cb47e71f52
+      md5: 02fd6321992447801deae7dad89ac311
       size: 895982
     - path: scripts/upload_model.sh
       hash: md5
@@ -34,9 +34,9 @@ stages:
     deps:
     - path: azure_function/
       hash: md5
-      md5: 8a7868f9ef284800859e9d45008f14a8.dir
-      size: 5885
-      nfiles: 8
+      md5: b0a901982fd8ecaa1c6de4653eb11ac6.dir
+      size: 3203
+      nfiles: 6
     - path: scripts/deploy_function.sh
       hash: md5
       md5: ea6cd378b5bbbace0a31fc00c5390e30
