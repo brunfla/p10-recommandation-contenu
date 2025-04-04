@@ -12,32 +12,21 @@ stages:
       - data/outs/model/model_svd.pkl
 
   ☁️_upload_model:
-    cmd: >
-      if [ "$GH_CI" = "true" ]; then \
-      azcopy copy data/outs/model/model_svd.pkl "$MODEL_SAS_URL" --overwrite=true; \
-      else \
-      echo "Skipping upload"; \
-      fi
+    cmd: ./scripts/upload_model.sh
     deps:
       - data/outs/model/model_svd.pkl
+      - scripts/upload_model.sh
 
   🚀_deploy_function:
-    cmd: >
-      if [ "$GH_CI" = "true" ]; then \
-      cd azure_function && func azure functionapp publish "$AZURE_FUNCTION_NAME" --python; \
-      else \
-      echo "Skipping Azure Function deployment (GH_CI != true)"; \
-      fi
+    cmd: ./scripts/deploy_function.sh
     deps:
       - azure_function/
+      - scripts/deploy_function.sh
 
   🎨_Deploy_Streamlit_App:
-    cmd: >
-      if [ "$GH_CI" = "true" ]; then \
-      echo "Streamlit deployment logic goes here"; \
-      else \
-      echo "Skipping Streamlit deployment (GH_CI != true)"; \
-      fi
+    cmd: ./scripts/deploy_streamlit.sh
+    deps:
+      - scripts/deploy_streamlit.sh
 
 #  🔐_Inject MODEL_SAS_URL in Azure Function config
 #     cmd: >

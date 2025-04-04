@@ -1,5 +1,6 @@
 # DVC local config (jamais versionné)
 .dvc/config.local
+_
 
 # Ignore tout dans data/
 data/*
