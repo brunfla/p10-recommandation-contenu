@@ -97,7 +97,7 @@ jobs:
             echo "📦 DVC uploaded files. Committing updated metadata..."
             git config --global user.email "bruno.flament.bf@gmail.com"
             git config --global user.name "Bruno Flament"
-            git remote set-url origin https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/brunfla/p10-recommandation-contenu.git
+            git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/brunfla/p10-recommandation-contenu.git
             git add dvc.lock dvc.yaml .dvc
             git commit -m "🔄 Update DVC metadata [CI]"
             git push origin HEAD:${{ github.ref_name }}
