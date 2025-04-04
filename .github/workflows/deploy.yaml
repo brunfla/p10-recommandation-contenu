@@ -104,6 +104,8 @@ jobs:
           else
             echo "✅ No data was pushed. Skipping Git commit."
           fi
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 #      - name: 🔐 Hash secrets
 #        run: |
