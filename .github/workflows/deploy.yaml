@@ -5,6 +5,9 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 env:
   GH_CI: true
 
@@ -105,7 +108,7 @@ jobs:
             echo "✅ No data was pushed. Skipping Git commit."
           fi
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 #      - name: 🔐 Hash secrets
 #        run: |
