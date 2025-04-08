@@ -2,8 +2,14 @@ schema: '2.0'
 stages:
   🧠_train_model:
     cmd: "papermill notebooks/training.ipynb _ -p metadata_path data/deps/articles_metadata.csv\
-      \  -p clicks_path data/deps/clicks_sample.csv -p output_path data/outs/model/model_svd.pkl\n"
+      \  -p clicks_path data/deps/clicks_sample.csv -p embeddings_path data/deps/articles_embeddings.pickle
+      -p content_based_model_path data/outs/model/content_based_model.pkl -p collaborative_model_path
+      data/outs/model/collaborative_filtering_svd.pkl\n"
     deps:
+    - path: data/deps/articles_embeddings.pickle
+      hash: md5
+      md5: cf45825fa33b7700e29e81c492a610ec
+      size: 364047163
     - path: data/deps/articles_metadata.csv
       hash: md5
       md5: 0a0fba504a6133ee5e9c391dff7e5217
@@ -13,10 +19,14 @@ stages:
       md5: b67fcaa316566ccee1d24570f6e9d11d
       size: 134214
     outs:
-    - path: data/outs/model/model_svd.pkl
+    - path: data/outs/model/collaborative_filtering_svd.pkl
       hash: md5
-      md5: 02fd6321992447801deae7dad89ac311
+      md5: 8670fb35fc6f28c7a9f9c57eb38e9a71
       size: 895982
+    - path: data/outs/model/content_based_model.pkl
+      hash: md5
+      md5: 1a5fca98a68419d346e96750374a9a8f
+      size: 366964067
   ☁️_upload_model:
     cmd: ./scripts/upload_model.sh
     deps:
@@ -32,21 +42,48 @@ stages:
   🚀_deploy_function:
     cmd: ./scripts/deploy_function.sh
     deps:
-    - path: azure_function/
-      hash: md5
-      md5: b0a901982fd8ecaa1c6de4653eb11ac6.dir
-      size: 3203
-      nfiles: 6
     - path: scripts/deploy_function.sh
       hash: md5
-      md5: ea6cd378b5bbbace0a31fc00c5390e30
-      size: 205
+      md5: 4f78a7a9f3beece8a11f00d2abe15561
+      size: 316
       isexec: true
   🎨_Deploy_Streamlit_App:
     cmd: ./scripts/deploy_streamlit.sh
     deps:
     - path: scripts/deploy_streamlit.sh
       hash: md5
-      md5: e9bc7182514897ec9c2c6f7462b83b4e
-      size: 161
+      md5: 01eba03abb6b0a32b64cbbc967059ce4
+      size: 20
+      isexec: true
+  ☁️_upload_content_based_model:
+    cmd: ./scripts/upload_model.sh content_based_model.pkl
+    deps:
+    - path: data/outs/model/content_based_model.pkl
+      hash: md5
+      md5: 1a5fca98a68419d346e96750374a9a8f
+      size: 366964067
+    - path: scripts/upload_model.sh
+      hash: md5
+      md5: e485434ba6f1bb0f16e3707d9f598db3
+      size: 655
+      isexec: true
+  ☁️_upload_collaborative_filtering_model:
+    cmd: ./scripts/upload_model.sh collaborative_filtering_svd.pkl
+    deps:
+    - path: data/outs/model/collaborative_filtering_svd.pkl
+      hash: md5
+      md5: 8670fb35fc6f28c7a9f9c57eb38e9a71
+      size: 895982
+    - path: scripts/upload_model.sh
+      hash: md5
+      md5: e485434ba6f1bb0f16e3707d9f598db3
+      size: 655
+      isexec: true
+  🔍_test_streamlit_app:
+    cmd: ./scripts/test_streamlit.sh
+    deps:
+    - path: scripts/test_streamlit.sh
+      hash: md5
+      md5: a0bbd11caef36d8bc2eabddf9f7efbfc
+      size: 1489
       isexec: true

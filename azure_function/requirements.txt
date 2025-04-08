@@ -2,8 +2,14 @@
 # The Python Worker is managed by the Azure Functions platform
 # Manually managing azure-functions-worker may cause unexpected issues
 
-scikit-surprise
-pandas
-numpy<2
-azure-functions
+# 📦 Packages de base
+pandas>=1.3.0
+numpy>=1.21,<2.0
 requests
+azure-functions
+
+# 🎯 Collaborative Filtering
+scikit-surprise
+
+# 📊 Content-Based Filtering
+scikit-learn>=1.0  # pour cosine_similarity et PCA

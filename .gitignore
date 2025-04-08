@@ -15,3 +15,5 @@ data/outs/*
 # Mais pas les .dvc
 !data/deps/*.dvc
 !data/outs/*.dvc
+
+azure_function/*/shared/

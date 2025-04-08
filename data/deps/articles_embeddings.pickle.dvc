@@ -1,0 +1,5 @@
+outs:
+- md5: cf45825fa33b7700e29e81c492a610ec
+  size: 364047163
+  hash: md5
+  path: articles_embeddings.pickle

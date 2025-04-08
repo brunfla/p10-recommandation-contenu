@@ -2,9 +2,13 @@
 set -e
 
 if [ "$GH_CI" = "true" ]; then
-  cd azure_function
-  func azure functionapp publish "$AZURE_FUNCTION_NAME" --python
+  echo "🚀 Déploiement Azure Function : P10"
+  cd azure_function && func azure functionapp publish "P10" --python
 else
-  echo "Skipping Azure Function deployment (GH_CI != true)"
-fi
+  echo "🧪 Dev local – démarrage des fonctions en local..."
 
+  mkdir -p .dvc/tmp
+  cd azure_function
+
+  func start -p 7072 --verbose &
+fi
