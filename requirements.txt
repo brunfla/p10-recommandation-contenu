@@ -290,7 +290,9 @@ jinja2==3.1.6
 jmespath==1.0.1
     # via knack
 joblib==1.4.2
-    # via scikit-surprise
+    # via
+    #   scikit-learn
+    #   scikit-surprise
 json5==0.10.0
     # via jupyterlab-server
 jsonpointer==3.0.0
@@ -419,6 +421,7 @@ numpy==1.26.4
     #   matplotlib
     #   pandas
     #   pydeck
+    #   scikit-learn
     #   scikit-surprise
     #   scipy
     #   seaborn
@@ -597,10 +600,14 @@ ruamel-yaml==0.18.10
     #   gto
 ruamel-yaml-clib==0.2.12
     # via ruamel-yaml
+scikit-learn==1.6.1
+    # via -r requirements.in
 scikit-surprise==1.1.4
     # via -r requirements.in
 scipy==1.13.1
-    # via scikit-surprise
+    # via
+    #   scikit-learn
+    #   scikit-surprise
 scmrepo==3.3.10
     # via
     #   dvc
@@ -650,6 +657,8 @@ terminado==0.18.1
     # via
     #   jupyter-server
     #   jupyter-server-terminals
+threadpoolctl==3.6.0
+    # via scikit-learn
 tinycss2==1.4.0
     # via bleach
 toml==0.10.2
