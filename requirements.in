@@ -10,3 +10,4 @@ streamlit
 azure-functions
 requests
 matplotlib
+seaborn

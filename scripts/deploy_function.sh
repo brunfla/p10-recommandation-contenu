@@ -3,7 +3,7 @@ set -e
 
 if [ "$GH_CI" = "true" ]; then
   echo "🚀 Déploiement Azure Function : P10"
-  cd azure_function && func azure functionapp publish "P10" --python
+  cd azure_function && func azure functionapp publish "p10" --python
 else
   echo "🧪 Dev local – démarrage des fonctions en local..."
 

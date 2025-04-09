@@ -2,6 +2,25 @@
 
 if [ "$GH_CI" = "true" ]; then
   echo "🚀 [CI] Streamlit test – à définir selon le pipeline CI"
+
+  echo "📡 Envoi de la requête à Azure Function (collaborative)..."
+  RESPONSE=$(curl -s -w "\nHTTP_CODE:%{http_code}" -X POST https://p10.azurewebsites.net/api/recommend-articles-collaborative \
+    -H "Content-Type: application/json" \
+    -d '{"user_id": 123}')
+
+  echo "$RESPONSE" | tee .dvc/tmp/test_output.txt
+
+  HTTP_CODE=$(echo "$RESPONSE" | grep HTTP_CODE | cut -d':' -f2)
+
+  # 👇 Initialiser un flag pour savoir si on a une erreur
+  ERROR_OCCURRED=false
+
+  if [ "$HTTP_CODE" = "200" ]; then
+    echo "✅ Requête réussie (200)"
+  else
+    echo "❌ Échec de la requête (HTTP $HTTP_CODE)"
+    ERROR_OCCURRED=true
+  fi
 else
   echo "🧪 [LOCAL] Lancement des tests Streamlit + Azure Functions..."
 
