@@ -1,5 +1,5 @@
 stages:
-  🧠_train_model:
+  train_model:
     cmd: >
       papermill notebooks/training.ipynb _
       -p metadata_path ${model.metadata_path} 
@@ -8,6 +8,7 @@ stages:
       -p content_based_model_path ${model.content_based_model_path}
       -p collaborative_model_path ${model.collaborative_model_path}
     deps:
+      - notebooks/training.ipynb
       - data/deps/clicks_sample.csv
       - data/deps/articles_metadata.csv
       - data/deps/articles_embeddings.pickle
@@ -15,39 +16,31 @@ stages:
       - data/outs/model/content_based_model.pkl
       - data/outs/model/collaborative_filtering_svd.pkl
 
-  ☁️_upload_content_based_model:
+  upload_content_based_model:
     cmd: ./scripts/upload_model.sh content_based_model.pkl
     deps:
       - data/outs/model/content_based_model.pkl
       - scripts/upload_model.sh
 
-  ☁️_upload_collaborative_filtering_model:
+  upload_collaborative_filtering_model:
     cmd: ./scripts/upload_model.sh collaborative_filtering_svd.pkl
     deps:
       - data/outs/model/collaborative_filtering_svd.pkl
       - scripts/upload_model.sh
 
-  🚀_deploy_function:
-    cmd: ./scripts/deploy_function.sh
+  build:
+    cmd: LOCAL=true docker-compose build
     deps:
-      - scripts/deploy_function.sh
+      - docker-compose.yml
+      - azure_function/Dockerfile
+      - streamlit_app/Dockerfile 
+
+  deploy:
+    cmd: LOCAL=true docker-compose up -d
     always_changed: true
 
-  🎨_Deploy_Streamlit_App:
-    cmd: ./scripts/deploy_streamlit.sh
+  test:
+    cmd: ./scripts/test.sh
     deps:
-      - scripts/deploy_streamlit.sh
+      - scripts/test.sh 
     always_changed: true
-
-  🔍_test_streamlit_app:
-    cmd: ./scripts/test_streamlit.sh
-    deps:
-      - scripts/test_streamlit.sh
-    always_changed: true
-
-#  🔐_Inject MODEL_SAS_URL in Azure Function config
-#     cmd: >
-#       az functionapp config appsettings set \
-#         --name "$AZURE_FUNCTION_NAME" \
-#         --resource-group "$AZURE_RESOURCE_GROUP" \
-#         --settings 'MODEL_SAS_URL='"$MODEL_SAS_URL"

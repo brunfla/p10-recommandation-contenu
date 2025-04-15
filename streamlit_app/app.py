@@ -1,9 +1,10 @@
 import streamlit as st
 import requests
 import pandas as pd
+import os
 
 # Lire la variable d’environnement "LOCAL"
-LOCAL = os.environ.get("LOCAL", "false").lower() == "true"
+LOCAL = os.environ.get("LOCAL", "true").lower() == "false"
 
 if LOCAL:
     BASE_URL = "http://localhost:7072/api"

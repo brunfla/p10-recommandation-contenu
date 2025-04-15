@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  streamlit_app:
+    build:
+      context: ./streamlit_app
+      dockerfile: Dockerfile
+    ports:
+      - "8501:8501"
+    restart: unless-stopped
+
+  azure_function:
+    build:
+      context: ./azure_function
+      dockerfile: Dockerfile
+    ports:
+      - "7071:7071"
+    restart: unless-stopped

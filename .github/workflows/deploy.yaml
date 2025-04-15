@@ -110,13 +110,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-#      - name: 🔐 Hash secrets
-#        run: |
-#          echo -n "$MODEL_SAS_URL" | sha256sum | cut -d ' ' -f1 > data/deps/github/MODEL_SAS_URL.hash
-#          echo -n "$AZURE_RESOURCE_GROUP" | sha256sum | cut -d ' ' -f1 > data/deps/github/AZURE_RESOURCE_GROUP.hash
-#          echo -n "$AZURE_FUNCTION_NAME" | sha256sum | cut -d ' ' -f1 > data/deps/github/AZURE_FUNCTION_NAME.hash
-#        env:
-#          MODEL_SAS_URL: ${{ secrets.MODEL_SAS_URL }}
-#          AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
-#          AZURE_FUNCTION_NAME: ${{ secrets.AZURE_FUNCTION_NAME }}
-
+      - name: Start services
+        run: |
+          docker-compose up -d
