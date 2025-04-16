@@ -37,7 +37,7 @@ stages:
     always_changed: true
 
   deploy:
-    cmd: if [ "$GH_CI" = "true" ]; then cd azure_function && func azure functionapp publish p10; else docker-compose up -d --force-recreate; fi
+    cmd: if [ "$GH_CI" = "true" ]; then cd azure_function && func azure functionapp publish p10 --python; else docker-compose up -d --force-recreate; fi
     always_changed: true
 
   test:
