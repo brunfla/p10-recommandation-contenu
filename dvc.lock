@@ -112,8 +112,8 @@ stages:
     outs:
     - path: data/outs/model/collaborative_filtering_svd.pkl
       hash: md5
-      md5: a146e0fe552a0f803f1d46238af9bf9a
-      size: 80204
+      md5: 036f62201034d9a9cee2040cd05bca09
+      size: 88444
     - path: data/outs/model/content_based_model.pkl
       hash: md5
       md5: 1a5fca98a68419d346e96750374a9a8f
@@ -135,8 +135,8 @@ stages:
     deps:
     - path: data/outs/model/collaborative_filtering_svd.pkl
       hash: md5
-      md5: a146e0fe552a0f803f1d46238af9bf9a
-      size: 80204
+      md5: 036f62201034d9a9cee2040cd05bca09
+      size: 88444
     - path: scripts/upload_model.sh
       hash: md5
       md5: e433dace7b79e5d66b285b23e74c964d
