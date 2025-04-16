@@ -107,13 +107,13 @@ stages:
       size: 134214
     - path: notebooks/training.ipynb
       hash: md5
-      md5: cc3032a64be5c75464a36d4aa75688c8
-      size: 1441570
+      md5: 1462b4ad5e566d849630bc5b886d767e
+      size: 1441598
     outs:
     - path: data/outs/model/collaborative_filtering_svd.pkl
       hash: md5
-      md5: 0f2d60aaa5f124e682bf2d1e4cccfd13
-      size: 113164
+      md5: 72e86ccf5ea1ee9ab2e1e0eab2c7f283
+      size: 88444
     - path: data/outs/model/content_based_model.pkl
       hash: md5
       md5: 1a5fca98a68419d346e96750374a9a8f
@@ -135,8 +135,8 @@ stages:
     deps:
     - path: data/outs/model/collaborative_filtering_svd.pkl
       hash: md5
-      md5: 0f2d60aaa5f124e682bf2d1e4cccfd13
-      size: 113164
+      md5: 72e86ccf5ea1ee9ab2e1e0eab2c7f283
+      size: 88444
     - path: scripts/upload_model.sh
       hash: md5
       md5: e485434ba6f1bb0f16e3707d9f598db3
@@ -173,8 +173,8 @@ stages:
     deps:
     - path: scripts/test.sh
       hash: md5
-      md5: beb2ac34ecfa175ffb2975c20840c662
-      size: 1914
+      md5: c59902b78de75e0808ea872aedd92173
+      size: 1549
       isexec: true
   build:
     cmd: LOCAL=true docker-compose build
