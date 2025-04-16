@@ -43,4 +43,3 @@ fi
 if [ "$ERROR_OCCURRED" = true ]; then
    exit 1
 fi
-
