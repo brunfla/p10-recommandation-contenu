@@ -7,7 +7,7 @@ import os
 LOCAL = os.environ.get("LOCAL", "true").lower() == "false"
 
 if LOCAL:
-    BASE_URL = "http://localhost:7072/api"
+    BASE_URL = "http://localhost:7071/api"
 else:
     BASE_URL = "https://p10.azurewebsites.net/api"
 
@@ -28,13 +28,32 @@ selected_user = st.selectbox("Sélectionnez un utilisateur", user_ids)
 # --- Choix du moteur de reco ---
 mode = st.radio("Choisissez le moteur de recommandation :", ["Collaboratif", "Content-Based"])
 
-# --- Simuler des clics (pour content-based uniquement) ---
-simulated_clicks = [
-    {"user_id": selected_user, "click_article_id": 101, "click_timestamp": 1710001000},
-    {"user_id": selected_user, "click_article_id": 202, "click_timestamp": 1710002000},
-    {"user_id": selected_user, "click_article_id": 303, "click_timestamp": 1710003000},
+# --- Charger les clics depuis un CSV ---
+@st.cache_data
+def load_clicks(csv_path="clicks.csv"):
+    df = pd.read_csv(csv_path)
+    return df
+
+clicks_df = load_clicks()
+
+# Préparer les clics pour le Content-Based
+user_clicks_df = clicks_df[clicks_df["user_id"] == selected_user]
+user_clicks_df = user_clicks_df.sort_values(by="click_timestamp", ascending=False)
+
+# Prendre les derniers 10 clics
+top_clicks = user_clicks_df.head(10)
+
+# Formatter dans le format requis par l'API
+real_clicks = [
+    {
+        "user_id": selected_user,
+        "click_article_id": int(row["click_article_id"]),
+        "click_timestamp": int(row["click_timestamp"])
+    }
+    for _, row in top_clicks.iterrows()
 ]
 
+# --- Lancer la recommandation ---
 if st.button("📡 Lancer la recommandation"):
     with st.spinner("Analyse en cours..."):
         try:
@@ -44,7 +63,7 @@ if st.button("📡 Lancer la recommandation"):
             else:
                 payload = {
                     "user_id": selected_user,
-                    "clicks": simulated_clicks
+                    "clicks": real_clicks
                 }
                 url = CONTENT_ENDPOINT
 
