@@ -35,5 +35,5 @@ COPY . .
 EXPOSE 7071
 
 # Lancer Azure Functions en local
-CMD ["func", "start", "--verbose"]
+CMD ["func", "start", "--python", "--port", "7071", "--host", "0.0.0.0", "--verbose"]
 

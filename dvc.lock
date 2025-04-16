@@ -107,13 +107,13 @@ stages:
       size: 134214
     - path: notebooks/training.ipynb
       hash: md5
-      md5: 7e4ad46053c00b24bcd3ceb8021eea2f
-      size: 1443914
+      md5: cc3032a64be5c75464a36d4aa75688c8
+      size: 1441570
     outs:
     - path: data/outs/model/collaborative_filtering_svd.pkl
       hash: md5
-      md5: 644bc345d2d6f0b5d44f817147fc7d9a
-      size: 88444
+      md5: 0f2d60aaa5f124e682bf2d1e4cccfd13
+      size: 113164
     - path: data/outs/model/content_based_model.pkl
       hash: md5
       md5: 1a5fca98a68419d346e96750374a9a8f
@@ -135,8 +135,8 @@ stages:
     deps:
     - path: data/outs/model/collaborative_filtering_svd.pkl
       hash: md5
-      md5: 644bc345d2d6f0b5d44f817147fc7d9a
-      size: 88444
+      md5: 0f2d60aaa5f124e682bf2d1e4cccfd13
+      size: 113164
     - path: scripts/upload_model.sh
       hash: md5
       md5: e485434ba6f1bb0f16e3707d9f598db3
@@ -167,7 +167,7 @@ stages:
       size: 2127
       isexec: true
   deploy:
-    cmd: LOCAL=true docker-compose up -d
+    cmd: LOCAL=true docker-compose up -d --force-recreate
   test:
     cmd: ./scripts/test.sh
     deps:
@@ -181,12 +181,12 @@ stages:
     deps:
     - path: azure_function/Dockerfile
       hash: md5
-      md5: e286db2e6fd26b736a09a45af9999db3
-      size: 1174
+      md5: b3efcce277bfc9c347df5d99afc6ee2c
+      size: 1225
     - path: docker-compose.yml
       hash: md5
-      md5: bb5a331400331d2f4778c6bdafca7ffb
-      size: 323
+      md5: b811997c6350952146175f72d2ffdf57
+      size: 340
     - path: streamlit_app/Dockerfile
       hash: md5
       md5: 56ad1cfdd931801b25885138a8b025df

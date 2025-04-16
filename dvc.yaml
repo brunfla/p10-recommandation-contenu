@@ -34,9 +34,10 @@ stages:
       - docker-compose.yml
       - azure_function/Dockerfile
       - streamlit_app/Dockerfile 
+    always_changed: true
 
   deploy:
-    cmd: LOCAL=true docker-compose up -d
+    cmd: LOCAL=true docker-compose up -d --force-recreate
     always_changed: true
 
   test:
