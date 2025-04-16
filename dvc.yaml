@@ -29,7 +29,7 @@ stages:
       - scripts/upload_model.sh
 
   build:
-    cmd: LOCAL=true docker-compose build
+    cmd: if [ "$GH_CI" = "true" ]; then echo "[CI] Skippe build docker"; else docker-compose build; fi
     deps:
       - docker-compose.yml
       - azure_function/Dockerfile
@@ -37,7 +37,7 @@ stages:
     always_changed: true
 
   deploy:
-    cmd: LOCAL=true docker-compose up -d --force-recreate
+    cmd: if [ "$GH_CI" = "true" ]; then cd azure_fonction && func azure functionapp publish p10; else docker-compose up -d --force-recreate; fi
     always_changed: true
 
   test:
