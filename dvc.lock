@@ -107,12 +107,12 @@ stages:
       size: 134214
     - path: notebooks/training.ipynb
       hash: md5
-      md5: 1462b4ad5e566d849630bc5b886d767e
-      size: 1441598
+      md5: 1e2a6bca332f1655039533157f8e1ee4
+      size: 1653841
     outs:
     - path: data/outs/model/collaborative_filtering_svd.pkl
       hash: md5
-      md5: 72e86ccf5ea1ee9ab2e1e0eab2c7f283
+      md5: d8151812e4fcf844134b0825f4b6324c
       size: 88444
     - path: data/outs/model/content_based_model.pkl
       hash: md5
@@ -135,7 +135,7 @@ stages:
     deps:
     - path: data/outs/model/collaborative_filtering_svd.pkl
       hash: md5
-      md5: 72e86ccf5ea1ee9ab2e1e0eab2c7f283
+      md5: d8151812e4fcf844134b0825f4b6324c
       size: 88444
     - path: scripts/upload_model.sh
       hash: md5
